@@ -1,9 +1,0 @@
-Sam: 100 miles @ 5 mph
-Bob: 42 miles @ 21 mph
-Lauren: 42 miles @ 34 mph
-Dan: 39 miles @ 47 mph
-Hank: 30 miles @ 40 mph
-Auggie: 0 miles
-Eggs: 0 miles
-Kumi: 0 miles
-Squire: 0 miles
