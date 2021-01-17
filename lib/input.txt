@@ -1,0 +1,18 @@
+Driver Dan
+Driver Lauren
+Driver Kumi
+Driver Squire
+Driver Auggie
+Driver Sam
+Driver Bob
+Driver Eggs
+Driver Hank
+Trip Bob 00:15 2:15 42.0
+Trip Dan 07:15 07:45 17.3
+Trip Dan 06:12 06:32 21.8
+Trip Lauren 12:01 13:16 42.0
+Trip Squire 05:00 05:05 100.0
+Trip Auggie 06:00 07:00 1.0
+Trip Sam 03:33 23:20 100.0
+Trip Hank 05:15 05:30 15.0
+Trip Hank 06:05 06:35 15.0
