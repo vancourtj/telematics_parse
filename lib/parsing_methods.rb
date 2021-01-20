@@ -3,6 +3,22 @@
 Driver = Struct.new(:driver, :total_distance, :avg_speed)
 Trip = Struct.new(:driver, :distance, :hours_driven)
 
+def input_parse(input_text)
+    driver_data = []
+    trip_data = []
+    input_text.each_line do |line|
+        parsed_line = line.gsub(/\s+/m, ' ').strip.split(" ")
+        type, data = line_parse(parsed_line)
+        case
+            when type == 'Driver'
+                driver_data.push(data)
+            when type == 'Trip'
+                trip_data.push(data)
+        end
+    end
+    return driver_data, trip_data
+end
+
 def line_parse(line)
     case
     when line[0] == 'Driver'
@@ -53,7 +69,13 @@ def trip_aggregate(driver_data,trip_data)
     return total_distance, avg_speed
 end
 
-def trip_sort(driver_data)
+def full_trip_aggregate(driver_data, trip_data)
+    driver_data.each{|driver|
+        driver.total_distance, driver.avg_speed = trip_aggregate(driver, trip_data)
+    }
+end
+
+def driver_sort(driver_data)
    return driver_data.sort_by {|driver| [-driver.total_distance, driver.driver]}
 end
 

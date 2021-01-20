@@ -1,5 +1,21 @@
 require "parsing_methods"
 
+describe "input_parse" do
+	it 'returns an array of driver and trip structs when given text file input lines' do
+		input = "Driver Dan\nTrip Dan 07:15 07:45 17.3"
+		driver_data, trip_data = input_parse(input)
+		driver_data = driver_data[0]
+		trip_data = trip_data[0]
+		expect(driver_data.driver).to eq('Dan')
+		expect(driver_data.total_distance).to be_nil
+		expect(driver_data.avg_speed).to be_nil
+		expect(trip_data.driver).to eq('Dan')
+		expect(trip_data.distance).to eq(17.3)
+		expect(trip_data.hours_driven).to eq(0.5)
+	end
+end
+
+
 describe "line_parse" do
 	it 'returns driver struct when the first line segment is "Driver"' do
 		type, driver = line_parse(['Driver', 'Dan'])
@@ -46,14 +62,18 @@ end
 
 describe "speed check" do
 	it 'returns false for speeds outside the range' do
-		speed_1 = speed_check(1)
-		speed_200 = speed_check(200)	
-		expect(speed_1).to be false
-		expect(speed_200).to be false
+		speed_b5 = speed_check(4.99)
+		speed_a100 = speed_check(100.01)	
+		expect(speed_b5).to be false
+		expect(speed_a100).to be false
 	end
 	it 'returns true for speeds inside the range' do
-		speed_10 = speed_check(10)
-		expect(speed_10).to be true
+		speed_5 = speed_check(5)
+		speed_50 = speed_check(50)
+		speed_100 = speed_check(100)
+		expect(speed_5).to be true
+		expect(speed_50).to be true
+		expect(speed_100).to be true
 	end
 end
 
@@ -80,20 +100,32 @@ describe "trip_aggregate" do
 	end
 end
 
-describe "trip_sort" do
-	it 'sorts the driver data descending by total distance driven' do
-		test_driver_1 = Driver.new('Sam')
-		test_driver_2 = Driver.new('Al')
-		test_driver_3 = Driver.new('Billy')
+describe "full_trip_aggregate" do
+	it 'adds aggregate information for all drivers' do
+		test_driver_1 = Driver.new('Al')
+		test_driver_2= Driver.new('Sam')
 		test_trip_1 = Trip.new('Sam', 17.2,0.5)
 		test_trip_2 = Trip.new('Sam', 21.8, 1/3.to_f)
 		test_trip_3 = Trip.new('Billy', 42.0, 0.25)
-		all_trips = [test_trip_1,test_trip_2,test_trip_3]
+		driver_data = [test_driver_1, test_driver_2]
+		trip_data = [test_trip_1, test_trip_2, test_trip_3]
+		full_trip_aggregate(driver_data, trip_data)
+		d1 = driver_data[0]
+		d2 = driver_data[1]
+		expect(d1.total_distance).to eq(0)
+		expect(d1.avg_speed).to be_nil
+		expect(d2.total_distance).to be_within(0.001).of(39.0)
+		expect(d2.avg_speed).to be_within(0.001).of(46.8)
+	end
+end
+
+describe "driver_sort" do
+	it 'sorts the driver data descending by total distance driven' do
+		test_driver_1 = Driver.new('Sam',39.0,47.0)
+		test_driver_2 = Driver.new('Al',0.0,0.0)
+		test_driver_3 = Driver.new('Billy',42.0,30.0)
 		driver_data = [test_driver_1, test_driver_2, test_driver_3]
-		driver_data.each{|driver|
-			driver.total_distance, driver.avg_speed = trip_aggregate(driver, all_trips)
-		}
-		sorted_data = trip_sort(driver_data)
+		sorted_data = driver_sort(driver_data)
 		d1 = sorted_data[0].driver
 		d2 = sorted_data[1].driver
 		d3 = sorted_data[2].driver
