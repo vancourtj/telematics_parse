@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
-require_relative 'models'
+require_relative 'driver_model'
+require_relative 'trip_model'
 
 def full_data_parse(input_text)
     driver_list, trip_list = class_initialization(input_text)
