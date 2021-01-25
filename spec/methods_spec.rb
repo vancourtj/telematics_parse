@@ -1,5 +1,6 @@
 require "methods"
-require "models"
+require "driver_model"
+require "trip_model"
 
 describe "line_parse" do
 	it 'returns a new instance of the Driver class when the first line segment is "Driver"' do
