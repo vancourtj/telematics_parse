@@ -22,23 +22,23 @@ The input file is expected to be in ``` lib ``` and you'll need to run the scrip
 ``` cat lib/input.txt | lib/main.rb ```
 
 The test cases can be run with \
-``` rspec ./spec/methods_spec.rb ``` And ``` rspec ./spec/models_spec.rb ```
+``` rspec ./spec/methods_spec.rb ``` Or ``` rspec ./spec/driver_model_spec.rb ``` Or ```rspec ./spec/trip_model_spec.rb```
 
 The output file will be put into the parent folder, not ```lib```
 
 # Design Choices
 
-## ```main.rb```
+## ```Main```
 
 I wanted the main file to be responsible for as little as possible. In this case, file input and calling the main method. This allowed me to split out the functions into ```methods.rb``` and the classes into ```models.rb``` and split their respective spec files as well. This segmentation of the code felt the most natural.
 
-## ```models.rb```
+## ```Models```
 
 There's an obvious one driver to many trips relationship in the data and there manipulations that one wants to do at the trip level and the driver level. This led me to creating ```Driver``` and ```Trip``` classes. The ```Driver.add_trip``` method adds allowed trips to be added to a driver attribute (match on driver name, trip speed allowed). The array of trips can then be aggregated as needed for each driver with various driver class methods.
 
 This type of data model is similar to the injury evaluation model in claims where many evaluation line items are tied to one involved party and wrap up to a single severity variable at the party level.
 
-## ```methods.rb```
+## ```Methods```
 The methods here are meant to deal with the operations needed outside the base driver-trip model. These methods:
 - split and parse the input data
 - initialize the found driver and trip class instances
