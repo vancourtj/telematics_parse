@@ -30,7 +30,7 @@ The output file will be put into the parent folder, not ```lib```
 
 ## ```Main```
 
-I wanted the main file to be responsible for as little as possible. In this case, file input and calling the main method. This allowed me to split out the functions into ```methods.rb``` and the classes into ```models.rb``` and split their respective spec files as well. This segmentation of the code felt the most natural.
+I wanted the main file to be responsible for as little as possible. In this case, file input and calling the main method. This allowed me to split out the functions into ```methods.rb``` and the classes into ```driver_model.rb``` and ```trip_model.rb``` and split their respective spec files as well. This segmentation of the code felt the most natural.
 
 ## ```Models```
 
