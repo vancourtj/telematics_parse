@@ -51,7 +51,6 @@ The methods here are meant to deal with the operations needed outside the base d
 - initialize the found driver and trip class instances
 - call the ```add_trip``` method for each driver
 - sort the drivers by their distance and name*
-- format the driver data into the expected output
 - write to the output file
 
 \* I chose to add the alphabet sort on distance tie because I wanted to put a little more structure on the output
