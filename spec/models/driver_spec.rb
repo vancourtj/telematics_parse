@@ -2,7 +2,7 @@ require "./models/driver"
 require "./models/trip"
 
 describe 'Driver' do
-	it 'should have no trips until a trip is added' do
+    it 'should have no trips until a trip is added' do
 		driver = Driver.new('Dan')
 		
 		expect(driver.trips).to match_array([])
