@@ -3,9 +3,9 @@ require "./models/trip"
 
 describe 'Driver' do
     it 'should have no trips until a trip is added' do
-		driver = Driver.new('Dan')
-		
-		expect(driver.trips).to match_array([])
+        driver = Driver.new('Dan')
+        
+        expect(driver.trips).to match_array([])
 	
 	end
 	
@@ -39,7 +39,7 @@ describe 'Driver' do
             trip3 = Trip.new('Dan','07:00','08:00','4.99') #below 5
             
             driver.add_trip(trip1)
-			driver.add_trip(trip2)
+            driver.add_trip(trip2)
             driver.add_trip(trip3)
             
             expect(driver.trips.length()).to eq(1)
@@ -57,8 +57,8 @@ describe 'Driver' do
         
         it 'calculates the total distance traveled across all trips for a driver' do
             driver = Driver.new('Dan')
-			trip1 = Trip.new('Dan','07:15','07:45','17.3')
-			trip2 = Trip.new('Dan','06:00','06:30','20.1')
+            trip1 = Trip.new('Dan','07:15','07:45','17.3')
+            trip2 = Trip.new('Dan','06:00','06:30','20.1')
             
             driver.add_trip(trip1)
 			driver.add_trip(trip2)
@@ -118,7 +118,7 @@ describe 'Driver' do
             expect(driver.avg_speed).to be_within(0.001).of(37.4)
         
         end
-	end
+    end
 
     describe 'print_format' do
         it 'creates a string like "driver: distance miles @ avg_speed mph" when is not nill. It also rounds to integer' do
@@ -133,6 +133,7 @@ describe 'Driver' do
         
         it 'creates a sting like "driver: distance miles" when avg_speed is nil' do
             driver1 = Driver.new('Dan')       
+            
             expect(driver1.print_format).to eq('Dan: 0 miles')
         
         end
