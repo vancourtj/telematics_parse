@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-require_relative 'driver_model'
-require_relative 'trip_model'
+require './models/driver'
+require './models/trip'
 
 def full_data_parse(input_text)
     driver_list, trip_list = class_initialization(input_text)
@@ -16,25 +16,28 @@ end
 def class_initialization(input_text)
     driver_list = []
     trip_list = []
+
     input_text.each_line do |line|
         parsed_line = line.gsub(/\s+/m, ' ').strip.split(" ")
         type, data = line_parse(parsed_line)
-        case
-            when type == 'Driver'
+        case type
+            when 'Driver'
                 driver_list.push(data)
-            when type == 'Trip'
+            when 'Trip'
                 trip_list.push(data)
         end
     end
+
     return driver_list, trip_list
 end
 
 def line_parse(line)
-    case
-    when line[0] == 'Driver'
+    case line[0]
+    when 'Driver'
         new_driver = Driver.new(line[1])
+
         return 'Driver', new_driver
-    when line[0] == 'Trip'
+    when 'Trip'
         driver = line[1]
         start_time = line[2]
         end_time = line[3]
@@ -69,8 +72,7 @@ def file_out(driver_list)
 end
 
 def print_format(driver)
-    case
-    when driver.avg_speed.nil?
+    if driver.avg_speed.nil?
         return driver.driver_name + ": " + "%0.0f" % [driver.total_distance] + " miles"
     else
         return driver.driver_name + ": " + "%0.0f" % [driver.total_distance] + " miles @ " + "%0.0f" % [driver.avg_speed] + " mph"

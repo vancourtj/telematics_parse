@@ -28,8 +28,7 @@ class Trip
     end
 
     def speed_check
-        case
-        when self.speed > @@maximum_speed || self.speed < @@minimum_speed
+        if self.speed > @@maximum_speed || self.speed < @@minimum_speed
             false
         else
             true
