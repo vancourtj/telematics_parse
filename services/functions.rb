@@ -2,6 +2,7 @@
 
 require './models/driver'
 require './models/trip'
+require './services/textparse'
 
 def full_data_parse(input_text)
     driver_list, trip_list = class_initialization(input_text)
@@ -18,35 +19,17 @@ def class_initialization(input_text)
     trip_list = []
 
     input_text.each_line do |line|
-        parsed_line = line.gsub(/\s+/m, ' ').strip.split(" ")
-        type, data = line_parse(parsed_line)
-        case type
+        new_line = TextParse.new(line)
+        
+        case new_line.type
             when 'Driver'
-                driver_list.push(data)
+                driver_list.push(Driver.new(new_line.data))
             when 'Trip'
-                trip_list.push(data)
+                trip_list.push(Trip.new(new_line.data[0],new_line.data[1],new_line.data[2],new_line.data[3]))
         end
     end
 
     return driver_list, trip_list
-end
-
-def line_parse(line)
-    case line[0]
-    when 'Driver'
-        new_driver = Driver.new(line[1])
-
-        return 'Driver', new_driver
-    when 'Trip'
-        driver = line[1]
-        start_time = line[2]
-        end_time = line[3]
-        distance = line[4].to_f
-
-        new_trip = Trip.new(driver,start_time, end_time,distance)
-
-        return 'Trip', new_trip
-    end
 end
 
 def trip_addition(driver_list, trip_list)
