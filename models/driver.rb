@@ -43,4 +43,12 @@ class Driver
             return self.total_distance / self.total_length_hours
         end
     end
+
+    def print_format
+        if self.avg_speed.nil?
+            return self.driver_name + ": " + "%0.0f" % [self.total_distance] + " miles"
+        else
+            return self.driver_name + ": " + "%0.0f" % [self.total_distance] + " miles @ " + "%0.0f" % [self.avg_speed] + " mph"
+        end
+    end
 end

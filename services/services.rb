@@ -65,16 +65,8 @@ def file_out(driver_list)
     output = File.open("output.txt","w")
     
     driver_list.each{|driver|
-        output.puts print_format(driver)
+        output.puts driver.print_format
     }
 
     output.close
-end
-
-def print_format(driver)
-    if driver.avg_speed.nil?
-        return driver.driver_name + ": " + "%0.0f" % [driver.total_distance] + " miles"
-    else
-        return driver.driver_name + ": " + "%0.0f" % [driver.total_distance] + " miles @ " + "%0.0f" % [driver.avg_speed] + " mph"
-    end
 end
