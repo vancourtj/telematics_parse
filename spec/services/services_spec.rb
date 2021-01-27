@@ -18,7 +18,7 @@ describe "line_parse" do
         type, trip = line_parse(['Trip','Dan','07:15','07:45','17.3'])
         
         expect(type).to eq('Trip')
-		expect(trip.driver_name).to eq('Dan')
+        expect(trip.driver_name).to eq('Dan')
         expect(trip.distance).to be_within(0.001).of(17.3)
     
     end
@@ -28,7 +28,7 @@ describe "line_parse" do
         type, driver = line_parse(['nope','driver'])
         
         expect(type).to be_nil
-		expect(driver).to be_nil
+        expect(driver).to be_nil
     
     end
 end
