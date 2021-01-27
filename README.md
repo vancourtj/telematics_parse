@@ -1,6 +1,20 @@
-# telematics_parse
+# How to run
 
-This ruby project takes a formatted text file, parses it, and outputs a data summary in a text file. The data happens to be telematics related.
+## script
+
+Set your directory to the main project folder ```telematics_parse```, make sure the input data file ```input.txt``` is in ```/lib```, and run in command line:
+
+```cat lib/input.txt | lib/main.rb```
+
+## tests
+
+Set your directory to the main project folder and run in command line:
+
+```bundle exec rspec```
+
+# Problem statement and background
+
+This ruby project takes formatted telematics data from a text file, parses it, and outputs a data summary in a text file.
 
 The incoming data is structured as space delimited lines of text where the first word represents a command and the subsequent words are data related to the command. The two commands are ```Driver``` and ```Trip```.
 
@@ -17,20 +31,13 @@ Bob: 55 miles @ 67 mph
 Sam: 20 miles @ 15 mph
 ```
 
-
-The input file is expected to be in ``` lib ``` and you'll need to run the script in the command line \
-``` cat lib/input.txt | lib/main.rb ```
-
-The test cases can be run with \
-``` rspec ./spec/methods_spec.rb ``` Or ``` rspec ./spec/driver_model_spec.rb ``` Or ```rspec ./spec/trip_model_spec.rb```
-
 The output file will be put into the parent folder, not ```lib```
 
 # Design Choices
 
 ## ```Main```
 
-I wanted the main file to be responsible for as little as possible. In this case, file input and calling the main method. This allowed me to split out the functions into ```methods.rb``` and the classes into ```driver_model.rb``` and ```trip_model.rb``` and split their respective spec files as well. This segmentation of the code felt the most natural.
+I wanted the main file to be responsible for as little as possible. In this case, file input and calling the main service. This allowed me to split out the functions into ```services/services.rb``` and the classes into ```models/driver.rb``` and ```models/trip.rb``` and split their respective spec files as well. This segmentation of the code felt the most natural.
 
 ## ```Models```
 
@@ -38,7 +45,7 @@ There's an obvious one driver to many trips relationship in the data and there m
 
 This type of data model is similar to the injury evaluation model in claims where many evaluation line items are tied to one involved party and wrap up to a single severity variable at the party level.
 
-## ```Methods```
+## ```Services```
 The methods here are meant to deal with the operations needed outside the base driver-trip model. These methods:
 - split and parse the input data
 - initialize the found driver and trip class instances
