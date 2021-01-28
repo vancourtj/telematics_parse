@@ -41,7 +41,7 @@ I wanted the main file to be responsible for as little as possible. In this case
 
 ## ```Models```
 
-There's an obvious one driver to many trips relationship in the data and there manipulations that one wants to do at the trip level and the driver level. This led me to creating ```Driver``` and ```Trip``` classes. The ```Driver.add_trip``` method adds allowed trips to be added to a driver attribute (match on driver name, trip speed allowed). The array of trips can then be aggregated as needed for each driver with various driver class methods.
+There's an obvious one driver to many trips relationship in the data and there are manipulations that one wants to do at the trip level and the driver level. This led me to creating ```Driver``` and ```Trip``` classes. The ```Driver.add_trip``` method adds allowed trips to a driver (match on driver name, trip speed allowed). The array of trips can then be aggregated as needed for each driver with various driver class methods.
 
 This type of data model is similar to the injury evaluation model in claims where many evaluation line items are tied to one involved party and wrap up to a single severity variable at the party level.
 
