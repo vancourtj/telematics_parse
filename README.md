@@ -37,7 +37,7 @@ The output file will be put into the parent folder, not ```lib```
 
 ## ```Main```
 
-I wanted the main file to be responsible for as little as possible. In this case, file input and calling the main service. This allowed me to split out the functions into ```services/services.rb``` and the classes into ```models/driver.rb``` and ```models/trip.rb``` and split their respective spec files as well. This segmentation of the code felt the most natural.
+I wanted the main file to be responsible for as little as possible. In this case, file input and calling the main service. This allowed me to split out ```services``` and ```models``` and split their respective spec files as well. This segmentation of the code felt the most natural.
 
 ## ```Models```
 
@@ -46,12 +46,15 @@ There's an obvious one driver to many trips relationship in the data and there m
 This type of data model is similar to the injury evaluation model in claims where many evaluation line items are tied to one involved party and wrap up to a single severity variable at the party level.
 
 ## ```Services```
-The methods here are meant to deal with the operations needed outside the base driver-trip model. These methods:
-- split and parse the input data
+This is split into more script like ```functions``` and a text line class ```TextParse```
+
+The functions here:
 - initialize the found driver and trip class instances
 - call the ```add_trip``` method for each driver
 - sort the drivers by their distance and name*
 - write to the output file
+
+```TextParse``` models the base commonalities of each line of text, a command type and related data.
 
 \* I chose to add the alphabet sort on distance tie because I wanted to put a little more structure on the output
  
